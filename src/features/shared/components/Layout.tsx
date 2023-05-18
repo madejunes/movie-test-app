@@ -4,7 +4,7 @@ type Props = {
 export default function Layout ({children}: Props ) {
   return (
     // <Navbar />
-    <div className="layout">
+    <div className="layout container mx-auto">
       {children}
     </div>
     // <Footer />
