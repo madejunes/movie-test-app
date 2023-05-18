@@ -1,35 +1,40 @@
-// import Image from 'next/image' // will use later
 import Head from 'next/head'
 
-type Props = {
-  nowPlayingMovies: any,
-  airingTodayTv: any
+import { MovieApiResponse } from '@/features/movie/movie'
+import { TvApiResponse } from '@/features/tv/tv'
+
+import MovieCard from '@/features/movie/components/MovieCard'
+import TvCard from '@/features/tv/components/TvCard'
+
+
+type HomeProps = {
+  nowPlayingMovies: MovieApiResponse,
+  airingTodayTv: TvApiResponse
 }
 
-export default function Home({nowPlayingMovies, airingTodayTv}: Props) {
+export default function Home({nowPlayingMovies, airingTodayTv}: HomeProps) {
+  const movies = nowPlayingMovies?.results.slice(0, 5);
+  const tvSeries = airingTodayTv?.results.slice(0, 5);
   return (
     <>
     <Head><title>Movie Test App</title></Head>
     <main>
-      {/* <Image
-        src="/vercel.svg"
-        alt="Vercel Logo"
-        className="dark:invert"
-        width={100}
-        height={24}
-        priority
-      /> */}
       <h2>Now Playing Movies</h2>
-      <div>
-        <pre>
-          {JSON.stringify(nowPlayingMovies?.results?.slice(0, 3), null, 2)}
-        </pre>
+      <div className='flex'>
+        {
+          movies.map(movie => (
+            <MovieCard key={movie.id} data={movie} /> 
+          ))
+        }
       </div>
+
       <h2>Airing Today TV Series</h2>
-      <div>
-        <pre>
-          {JSON.stringify(airingTodayTv?.results?.slice(0, 3), null, 2)}
-        </pre>
+      <div className='flex'>
+        {
+          tvSeries.map(tv => (
+            <TvCard key={tv.id} data={tv} /> 
+          ))
+        }
       </div>
     </main>
     </>
