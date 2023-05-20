@@ -1,12 +1,12 @@
 import Image from 'next/image'
-import { Tv } from "../tv"
+import { Tv } from '../tv'
 import formatPosterUrl from '@/utils/format-poster-url'
 
 type TvCardProps = {
   data: Tv
 }
 
-export default function MovieCard ({data}: TvCardProps) {
+export default function MovieCard({ data }: TvCardProps) {
   return (
     <div>
       <Image
