@@ -5,6 +5,7 @@ import { TvApiResponse } from '@/features/tv/tv'
 
 import MovieCard from '@/features/movie/components/MovieCard'
 import TvCard from '@/features/tv/components/TvCard'
+import { APP_TITLE } from '@/utils/settings'
 
 
 type HomeProps = {
@@ -17,7 +18,7 @@ export default function Home({nowPlayingMovies, airingTodayTv}: HomeProps) {
   const tvSeries = airingTodayTv?.results.slice(0, 5);
   return (
     <>
-    <Head><title>Movie Test App</title></Head>
+    <Head><title>{APP_TITLE}</title></Head>
     <main>
       <h2>Now Playing Movies</h2>
       <div className='flex'>

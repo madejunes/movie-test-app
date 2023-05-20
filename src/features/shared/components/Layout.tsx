@@ -1,12 +1,16 @@
-type Props = {
+import Navbar from "./Navbar"
+
+type LayoutProps = {
   children: string | React.JSX.Element | React.JSX.Element[]
 }
-export default function Layout ({children}: Props ) {
+export default function Layout ({children}: LayoutProps ) {
   return (
-    // <Navbar />
     <div className="layout container mx-auto">
-      {children}
+      <h1 className="sr-only">Movie Test App</h1>
+      <Navbar />
+      <div className="content">
+        {children}
+      </div>
     </div>
-    // <Footer />
   )
 }
