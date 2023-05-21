@@ -1,14 +1,14 @@
 import { APP_TITLE } from '@/utils/settings'
 import Head from 'next/head'
 
-export default function MoviePage() {
+export default function TvPage() {
   return (
     <>
       <Head>
-        <title>Movie  | {APP_TITLE}</title>
+        <title>TV | {APP_TITLE}</title>
       </Head>
-      <h1>Movie</h1>
-      <p>movie page ini</p>
+      <h1>Tv</h1>
+      <p>tv page ini</p>
     </>
   )
 }

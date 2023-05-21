@@ -12,7 +12,7 @@ type MovieCardProps = {
 export default function MovieCard({ data }: MovieCardProps) {
   return (
     <div className='overflow-hidden'>
-      <Link className='relative group' href={`/detail/${formatSlug(data.title)}`}>
+      <Link className='relative group' href={`/detail/${formatSlug(`movie-${data.id}-${data.title}`)}`}>
         <Image
           src={formatPosterUrl(data.poster_path)}
           alt={data.title}

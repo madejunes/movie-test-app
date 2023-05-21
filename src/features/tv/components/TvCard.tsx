@@ -12,7 +12,7 @@ type TvCardProps = {
 export default function MovieCard({ data }: TvCardProps) {
   return (
     <div className='overflow-hidden'>
-      <Link className='relative group' href={`/detail/${formatSlug(data.name)}`}>
+      <Link className='relative group' href={`/detail/${formatSlug(`tv-${data.id}-${data.name}`)}`}>
         <Image
           src={formatPosterUrl(data.poster_path)}
           alt={data.name}

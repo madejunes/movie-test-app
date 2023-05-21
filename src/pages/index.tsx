@@ -24,7 +24,7 @@ export default function Home({ nowPlayingMovies, airingTodayTv }: HomeProps) {
       </Head>
       <main>
         <div className='flex justify-between mb-2'>
-          <h2 className='text-lg'>Now Playing Movies</h2>
+          <h2 className='text-2xl'>Now Playing Movies</h2>
           <Link className='hover:underline' href="/movie">See More</Link>
         </div>
         <div className="overflow-x-auto mb-8">
@@ -36,7 +36,7 @@ export default function Home({ nowPlayingMovies, airingTodayTv }: HomeProps) {
         </div>
 
         <div className='flex justify-between mb-2'>
-          <h2 className='text-lg'>Airing Today TV Series</h2>
+          <h2 className='text-2xl'>Airing Today TV Series</h2>
           <Link className='hover:underline' href="/tv">See More</Link>
         </div>
         <div className="overflow-x-auto mb-8">

@@ -5,7 +5,7 @@ type LayoutProps = {
 }
 export default function Layout({ children }: LayoutProps) {
   return (
-    <div className="layout container mx-auto">
+    <div className="layout container mx-auto px-4">
       <h1 className="sr-only">Movie Test App</h1>
       <Navbar />
       <div className="content">{children}</div>
