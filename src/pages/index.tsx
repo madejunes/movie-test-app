@@ -15,8 +15,8 @@ type HomeProps = {
 }
 
 export default function Home({ nowPlayingMovies, airingTodayTv }: HomeProps) {
-  const movies = nowPlayingMovies?.results.slice(0, 3)
-  const tvSeries = airingTodayTv?.results.slice(0, 3)
+  const movies = nowPlayingMovies?.results.slice(0, 4)
+  const tvSeries = airingTodayTv?.results.slice(0, 4)
   return (
     <>
       <Head>
@@ -27,20 +27,24 @@ export default function Home({ nowPlayingMovies, airingTodayTv }: HomeProps) {
           <h2 className='text-lg'>Now Playing Movies</h2>
           <Link className='hover:underline' href="/movie">See More</Link>
         </div>
-        <div className="mb-8 columns-3">
-          {movies.map((movie) => (
-            <MovieCard key={movie.id} data={movie} />
-          ))}
+        <div className="overflow-x-auto mb-8">
+          <div className="flex gap-x-6 w-max pb-4">
+            {movies.map((movie) => (
+              <MovieCard key={movie.id} data={movie} />
+            ))}
+          </div>
         </div>
 
         <div className='flex justify-between mb-2'>
           <h2 className='text-lg'>Airing Today TV Series</h2>
           <Link className='hover:underline' href="/tv">See More</Link>
         </div>
-        <div className="columns-3">
+        <div className="overflow-x-auto mb-8">
+          <div className="flex gap-x-6 w-max pb-4">
           {tvSeries.map((tv) => (
             <TvCard key={tv.id} data={tv} />
           ))}
+          </div>
         </div>
       </main>
     </>

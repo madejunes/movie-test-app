@@ -23,7 +23,7 @@ export default function Navbar() {
             }`}
           >
             <Link
-              className="block p-4 group-[.active]:bg-white group-[.active]:text-black hover:bg-white hover:text-black"
+              className="block py-4 px-6 group-[.active]:bg-white group-[.active]:text-black hover:bg-white hover:text-black"
               href={link.path}
             >
               {link.label}

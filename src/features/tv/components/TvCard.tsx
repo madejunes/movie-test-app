@@ -20,7 +20,7 @@ export default function MovieCard({ data }: TvCardProps) {
           height={513}
           className='group-hover:scale-105 transition-all'
         />
-        <h2 className='absolute left-0 right-0 bottom-0 bg-slate-500/50 h-1/3 px-3 py-2 font-bold flex items-end'>{data.name}</h2>
+        <h2 className='absolute left-0 right-0 bottom-0 bg-slate-500/50 h-1/5 px-3 py-2 font-bold flex items-center justify-center text-center'>{data.name}</h2>
       </Link>
     </div>
   )
