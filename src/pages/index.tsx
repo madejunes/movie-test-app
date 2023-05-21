@@ -1,11 +1,13 @@
 import Head from 'next/head'
-
+import Link from 'next/link'
 import { MovieApiResponse } from '@/features/movie/movie'
 import { TvApiResponse } from '@/features/tv/tv'
 
 import MovieCard from '@/features/movie/components/MovieCard'
 import TvCard from '@/features/tv/components/TvCard'
+
 import { APP_TITLE } from '@/utils/settings'
+
 
 type HomeProps = {
   nowPlayingMovies: MovieApiResponse
@@ -13,23 +15,29 @@ type HomeProps = {
 }
 
 export default function Home({ nowPlayingMovies, airingTodayTv }: HomeProps) {
-  const movies = nowPlayingMovies?.results.slice(0, 5)
-  const tvSeries = airingTodayTv?.results.slice(0, 5)
+  const movies = nowPlayingMovies?.results.slice(0, 3)
+  const tvSeries = airingTodayTv?.results.slice(0, 3)
   return (
     <>
       <Head>
         <title>{APP_TITLE}</title>
       </Head>
       <main>
-        <h2>Now Playing Movies</h2>
-        <div className="flex">
+        <div className='flex justify-between mb-2'>
+          <h2 className='text-lg'>Now Playing Movies</h2>
+          <Link className='hover:underline' href="/movie">See More</Link>
+        </div>
+        <div className="mb-8 columns-3">
           {movies.map((movie) => (
             <MovieCard key={movie.id} data={movie} />
           ))}
         </div>
 
-        <h2>Airing Today TV Series</h2>
-        <div className="flex">
+        <div className='flex justify-between mb-2'>
+          <h2 className='text-lg'>Airing Today TV Series</h2>
+          <Link className='hover:underline' href="/tv">See More</Link>
+        </div>
+        <div className="columns-3">
           {tvSeries.map((tv) => (
             <TvCard key={tv.id} data={tv} />
           ))}

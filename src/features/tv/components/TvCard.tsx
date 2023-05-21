@@ -1,6 +1,9 @@
 import Image from 'next/image'
+import Link from 'next/link'
+
 import { Tv } from '../tv'
 import formatPosterUrl from '@/utils/format-poster-url'
+import formatSlug from '@/utils/format-slug'
 
 type TvCardProps = {
   data: Tv
@@ -8,14 +11,17 @@ type TvCardProps = {
 
 export default function MovieCard({ data }: TvCardProps) {
   return (
-    <div>
-      <Image
-        src={formatPosterUrl(data.poster_path)}
-        alt={data.name}
-        width={342}
-        height={513}
-      />
-      <h2>{data.name}</h2>
+    <div className='overflow-hidden'>
+      <Link className='relative group' href={`/detail/${formatSlug(data.name)}`}>
+        <Image
+          src={formatPosterUrl(data.poster_path)}
+          alt={data.name}
+          width={342}
+          height={513}
+          className='group-hover:scale-105 transition-all'
+        />
+        <h2 className='absolute left-0 right-0 bottom-0 bg-slate-500/50 h-1/3 px-3 py-2 font-bold flex items-end'>{data.name}</h2>
+      </Link>
     </div>
   )
 }
