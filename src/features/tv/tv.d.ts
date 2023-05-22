@@ -1,9 +1,5 @@
-export type Tv = {
-  id: number
-  name: string
-  poster_path: string
-}
+import { Item } from "../shared/types/item"
 
 export type TvApiResponse = {
-  results: Tv[]
+  results: Item[]
 }

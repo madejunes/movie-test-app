@@ -3,7 +3,7 @@ import Image from 'next/image'
 import Head from 'next/head'
 import Link from 'next/link';
 
-import { APP_TITLE } from '@/utils/settings'
+import { APP_TITLE, TMDB_API_PREFIX } from '@/utils/settings'
 import formatPosterUrl from '@/utils/format-poster-url'
 
 
@@ -65,7 +65,7 @@ export const getServerSideProps = async (context: GetServerSidePropsContext<{id:
   const contentId = splittedParam?.[1]
 
   const contentData = await fetch(
-    `https://api.themoviedb.org/3/${contentType}/${contentId}?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}`
+    `${TMDB_API_PREFIX}${contentType}/${contentId}?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}`
   ).then((res) => res.json())
 
   return {

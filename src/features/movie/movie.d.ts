@@ -1,9 +1,5 @@
-export type Movie = {
-  id: number
-  title: string
-  poster_path: string
-}
+import { Item } from "../shared/types/item"
 
 export type MovieApiResponse = {
-  results: Movie[]
+  results: Item[]
 }

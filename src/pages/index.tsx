@@ -1,12 +1,13 @@
 import Head from 'next/head'
 import Link from 'next/link'
+
 import { MovieApiResponse } from '@/features/movie/movie'
 import { TvApiResponse } from '@/features/tv/tv'
 
-import MovieCard from '@/features/movie/components/MovieCard'
-import TvCard from '@/features/tv/components/TvCard'
+import ItemList from '@/features/shared/components/ItemList'
 
-import { APP_TITLE } from '@/utils/settings'
+import { APP_TITLE, TMDB_API_PREFIX } from '@/utils/settings'
+
 
 
 type HomeProps = {
@@ -17,6 +18,9 @@ type HomeProps = {
 export default function Home({ nowPlayingMovies, airingTodayTv }: HomeProps) {
   const movies = nowPlayingMovies?.results.slice(0, 4)
   const tvSeries = airingTodayTv?.results.slice(0, 4)
+  movies.forEach(movie => movie.contentType = 'movie')
+  tvSeries.forEach(movie => movie.contentType = 'tv')
+  
   return (
     <>
       <Head>
@@ -27,25 +31,13 @@ export default function Home({ nowPlayingMovies, airingTodayTv }: HomeProps) {
           <h2 className='text-2xl'>Now Playing Movies</h2>
           <Link className='hover:underline' href="/movie">See More</Link>
         </div>
-        <div className="overflow-x-auto mb-8">
-          <div className="flex gap-x-6 w-max pb-4">
-            {movies.map((movie) => (
-              <MovieCard key={movie.id} data={movie} />
-            ))}
-          </div>
-        </div>
+        <ItemList items={movies} />
 
         <div className='flex justify-between mb-2'>
           <h2 className='text-2xl'>Airing Today TV Series</h2>
           <Link className='hover:underline' href="/tv">See More</Link>
         </div>
-        <div className="overflow-x-auto mb-8">
-          <div className="flex gap-x-6 w-max pb-4">
-          {tvSeries.map((tv) => (
-            <TvCard key={tv.id} data={tv} />
-          ))}
-          </div>
-        </div>
+        <ItemList items={tvSeries} />
       </main>
     </>
   )
@@ -53,11 +45,11 @@ export default function Home({ nowPlayingMovies, airingTodayTv }: HomeProps) {
 
 export const getServerSideProps = async () => {
   const nowPlayingMovieResponse = fetch(
-    `https://api.themoviedb.org/3/movie/now_playing?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}`
+    `${TMDB_API_PREFIX}movie/now_playing?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}`
   ).then((res) => res.json())
 
   const airingTodayTvResponse = fetch(
-    `https://api.themoviedb.org/3/tv/airing_today?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}`
+    `${TMDB_API_PREFIX}tv/airing_today?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}`
   ).then((res) => res.json())
 
   const [nowPlayingMovies, airingTodayTv] = await Promise.all([
