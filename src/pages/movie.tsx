@@ -11,8 +11,8 @@ type MoviePageProps = {
 }
 
 export default function MoviePage({topRatedMovies, upcomingMovies}: MoviePageProps) {
-  const topRated = topRatedMovies?.results.slice(0, 4)
-  const upcoming = upcomingMovies?.results.slice(0, 4)
+  const topRated = topRatedMovies?.results
+  const upcoming = upcomingMovies?.results
   topRated.forEach((movie) => (movie.contentType = 'movie'))
   upcoming.forEach((movie) => (movie.contentType = 'movie'))
 
