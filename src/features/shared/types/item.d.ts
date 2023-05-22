@@ -4,4 +4,6 @@ export type Item = {
   name: string
   poster_path: string
   contentType: string
+  overview: string
+  media_type: string
 }

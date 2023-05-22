@@ -7,6 +7,12 @@ import { fetchSearchSuccess, toggleSearchLoadingStatus, updateSearchQuery } from
 import { RootState } from '@/store'
 
 import { APP_TITLE, TMDB_API_PREFIX } from '@/utils/settings'
+import { Item } from '@/features/shared/types/item'
+import ItemCardLong from '@/features/shared/components/ItemCardLong'
+
+type FetchSearchResult = {
+  results: Item[]
+}
 
 export default function SearchPage() {
   const dispatch = useDispatch()
@@ -23,9 +29,11 @@ export default function SearchPage() {
     try { 
       const response = await fetch(
         `${TMDB_API_PREFIX}search/multi?query=${searchQuery}&api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}`
-      ).then((res) => res.json())
+      ).then((res) => res.json()).then((data) => data as FetchSearchResult)
+      const excludePerson = response.results.filter(item => item.media_type !== 'person')
+      
       dispatch(toggleSearchLoadingStatus())
-      dispatch(fetchSearchSuccess(response))
+      dispatch(fetchSearchSuccess(excludePerson))
     } catch (error) {
       dispatch(toggleSearchLoadingStatus())
       dispatch(fetchSearchSuccess(error))
@@ -46,7 +54,7 @@ export default function SearchPage() {
       <h1 className='text-2xl mb-4'>{pageTitle}</h1>
       
       <DebounceInput
-        className='p-4 w-full lg:w-1/2 text-black' 
+        className='p-4 w-full lg:w-1/2 text-black mb-8' 
         type='search'
         placeholder='type your query here'
         value={searchQuery} 
@@ -59,17 +67,17 @@ export default function SearchPage() {
         ?
           <p>Loading .... </p>
         :
-          <p>berenti loading .... </p>
+          <>
+          <div>
+            {searchError}
+          </div>
+          <div>
+            {searchResult.map((item: Item) => (
+              <ItemCardLong key={item.id} item={item} />
+            ))}
+          </div>
+          </>
       }
-
-      {
-        JSON.stringify(searchResult, null, 2)
-      }
-
-      {
-        JSON.stringify(searchError, null, 2)
-      }
-
     </>
   )
 }
