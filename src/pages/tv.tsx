@@ -19,16 +19,16 @@ export default function MoviePage({topRatedTv, popularTv}: MoviePageProps) {
   return (
     <>
       <Head>
-        <title>Movie | {APP_TITLE}</title>
+        <title>TV Shows | {APP_TITLE}</title>
       </Head>
       <main>
         <div className="flex justify-between mb-2">
-          <h2 className="text-2xl">Top Rated TV Series</h2>
+          <h2 className="text-2xl">Top Rated TV Shows</h2>
         </div>
         <ItemList items={topRated} />
 
         <div className="flex justify-between mb-2">
-          <h2 className="text-2xl">Popular TV Series</h2>
+          <h2 className="text-2xl">Popular TV Shows</h2>
         </div>
         <ItemList items={popular} />
       </main>
