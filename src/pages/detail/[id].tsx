@@ -42,11 +42,11 @@ export default function DetailPage({ data }: DetailPageProps) {
             alt={title}
             width={342}
             height={513}
-            className="lg:absolute lg:right-0 lg:top-0 mb-4"
           />
         )}
-        <div className="relative lg:min-h-[439px] flex items-center bg-gradient-to-r from-slate-950 to-slate-400/10">
-          <div className="lg:w-[50%] lg:pl-10">
+        <div className="lg:absolute lg:right-0 lg:top-0 lg:bottom-0 lg:w-[780px] lg:bg-gradient-to-r lg:from-slate-950 lg:to-slate-400/10"></div>
+        <div className="relative lg:min-h-[439px] flex items-center">
+          <div className="lg:w-[50%] lg:px-10 ">
             <h1 className="text-2xl font-bold mb-4">{title || name}</h1>
             <p className="mb-4">{overview}</p>
             <p>

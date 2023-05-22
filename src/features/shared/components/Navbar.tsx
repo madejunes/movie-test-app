@@ -3,8 +3,10 @@ import { useRouter } from 'next/router'
 
 export default function Navbar() {
   const router = useRouter()
-  const isCurrentPage = (path: string) => router.asPath === path
-
+  const isCurrentPage = (path: string, label: string) => {
+    return router.asPath === path || router.asPath.includes(`/detail/${label.toLowerCase()}`)
+  }
+  
   const links = [
     { label: 'Home', path: '/' },
     { label: 'Movie', path: '/movie' },
@@ -19,7 +21,7 @@ export default function Navbar() {
           <li
             key={link.label}
             className={`text-xl group ${
-              isCurrentPage(link.path) ? 'active' : ''
+              isCurrentPage(link.path, link.label) ? 'active' : ''
             }`}
           >
             <Link
