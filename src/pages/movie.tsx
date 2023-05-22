@@ -5,7 +5,7 @@ export default function MoviePage() {
   return (
     <>
       <Head>
-        <title>Movie  | {APP_TITLE}</title>
+        <title>Movie | {APP_TITLE}</title>
       </Head>
       <h1>Movie</h1>
       <p>movie page ini</p>

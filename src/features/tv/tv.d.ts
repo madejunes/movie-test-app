@@ -1,4 +1,4 @@
-import { Item } from "../shared/types/item"
+import { Item } from '../shared/types/item'
 
 export type TvApiResponse = {
   results: Item[]
