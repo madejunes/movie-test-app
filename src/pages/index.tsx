@@ -46,17 +46,17 @@ export default function Home({ nowPlayingMovies, airingTodayTv }: HomeProps) {
 }
 
 export const getServerSideProps = async () => {
-  const nowPlayingMovieResponse = fetch(
+  const nowPlayingMovieRequest = fetch(
     `${TMDB_API_PREFIX}movie/now_playing?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}`
   ).then((res) => res.json())
 
-  const airingTodayTvResponse = fetch(
+  const airingTodayTvRequest = fetch(
     `${TMDB_API_PREFIX}tv/airing_today?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}`
   ).then((res) => res.json())
 
   const [nowPlayingMovies, airingTodayTv] = await Promise.all([
-    nowPlayingMovieResponse,
-    airingTodayTvResponse,
+    nowPlayingMovieRequest,
+    airingTodayTvRequest,
   ])
 
   return {
