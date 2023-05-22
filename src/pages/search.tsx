@@ -48,7 +48,7 @@ export default function SearchPage() {
   return (
     <>
       <Head>
-        <title>{pageTitle} | {APP_TITLE}</title>
+        <title>{`${pageTitle} | ${APP_TITLE}`}</title>
       </Head>
       
       <h1 className='text-2xl mb-4'>{pageTitle}</h1>

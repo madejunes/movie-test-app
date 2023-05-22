@@ -19,7 +19,7 @@ export default function MoviePage({topRatedTv, popularTv}: MoviePageProps) {
   return (
     <>
       <Head>
-        <title>TV Shows | {APP_TITLE}</title>
+        <title>{`TV Shows | ${APP_TITLE}`}</title>
       </Head>
       <main>
         <div className="flex justify-between mb-2">

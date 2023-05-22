@@ -19,7 +19,7 @@ export default function MoviePage({topRatedMovies, upcomingMovies}: MoviePagePro
   return (
     <>
       <Head>
-        <title>Movie | {APP_TITLE}</title>
+        <title>{`Movie | ${APP_TITLE}`}</title>
       </Head>
       <main>
         <div className="flex justify-between mb-2">

@@ -19,12 +19,12 @@ type DetailPageProps = {
 
 export default function DetailPage({ data }: DetailPageProps) {
   const { title, name, backdrop_path, poster_path, overview, homepage } = data
+  const itemTitle = title || name
   return (
     <>
       <Head>
         <title>
-          {' '}
-          {title || name} | {APP_TITLE}
+          {`${itemTitle} | ${APP_TITLE}`}
         </title>
       </Head>
       <div className="relative overflow-hidden">
@@ -47,7 +47,7 @@ export default function DetailPage({ data }: DetailPageProps) {
         <div className="lg:absolute lg:right-0 lg:top-0 lg:bottom-0 lg:w-[780px] lg:bg-gradient-to-r lg:from-slate-950 lg:to-slate-400/10"></div>
         <div className="relative lg:min-h-[439px] flex items-center">
           <div className="lg:w-[50%] lg:px-10 ">
-            <h1 className="text-2xl font-bold mb-4">{title || name}</h1>
+            <h1 className="text-2xl font-bold mb-4">{itemTitle}</h1>
             <p className="mb-4">{overview}</p>
             <p>
               Official Website:{' '}
