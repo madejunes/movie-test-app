@@ -4,9 +4,12 @@ import { useRouter } from 'next/router'
 export default function Navbar() {
   const router = useRouter()
   const isCurrentPage = (path: string, label: string) => {
-    return router.asPath === path || router.asPath.includes(`/detail/${label.toLowerCase()}`)
+    return (
+      router.asPath === path ||
+      router.asPath.includes(`/detail/${label.toLowerCase()}`)
+    )
   }
-  
+
   const links = [
     { label: 'Home', path: '/' },
     { label: 'Movie', path: '/movie' },

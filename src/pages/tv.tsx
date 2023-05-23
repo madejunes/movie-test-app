@@ -6,11 +6,11 @@ import { APP_TITLE, TMDB_API_PREFIX } from '@/utils/settings'
 import { TvApiResponse } from '@/features/tv/tv'
 
 type MoviePageProps = {
-  topRatedTv: TvApiResponse,
+  topRatedTv: TvApiResponse
   popularTv: TvApiResponse
 }
 
-export default function MoviePage({topRatedTv, popularTv}: MoviePageProps) {
+export default function MoviePage({ topRatedTv, popularTv }: MoviePageProps) {
   const topRated = topRatedTv.results
   const popular = popularTv.results
   topRated.forEach((tv) => (tv.contentType = 'tv'))
@@ -47,13 +47,13 @@ export const getServerSideProps = async () => {
 
   const [topRatedTv, popularTv] = await Promise.all([
     topRatedTvRequest,
-    popularTvRequest
+    popularTvRequest,
   ])
 
   return {
     props: {
       topRatedTv,
-      popularTv
+      popularTv,
     },
   }
 }

@@ -1,7 +1,6 @@
-import { Item } from "@/features/shared/types/item"
-import { createSlice } from "@reduxjs/toolkit"
+import { createSlice } from '@reduxjs/toolkit'
 
-const initialState  = {
+const initialState = {
   searchQuery: '',
   searchIsLoading: false,
   searchResult: [],
@@ -23,8 +22,8 @@ export const searchSlice = createSlice({
     },
     fetchSearchError: (state, action) => {
       state.searchResult = action.payload
-    }
-  }
+    },
+  },
 })
 
 export const {

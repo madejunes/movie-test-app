@@ -14,9 +14,7 @@ const ItemCardLong = ({ item }: ItemCardProps) => {
     <div>
       <Link
         className="group flex mb-4"
-        href={`/detail/${formatSlug(
-          `${item.media_type}-${item.id}-${title}`
-        )}`}
+        href={`/detail/${formatSlug(`${item.media_type}-${item.id}-${title}`)}`}
       >
         <Image
           src={formatPosterUrl(item.poster_path, 'w342')}
@@ -25,7 +23,7 @@ const ItemCardLong = ({ item }: ItemCardProps) => {
           height={278}
           className="group-hover:scale-105 transition-all"
         />
-        <div className='ml-8'>
+        <div className="ml-8">
           <h2 className="font-bold">{title}</h2>
           <p>{item.overview}</p>
         </div>

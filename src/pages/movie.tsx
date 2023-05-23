@@ -6,11 +6,14 @@ import { APP_TITLE, TMDB_API_PREFIX } from '@/utils/settings'
 import { MovieApiResponse } from '@/features/movie/movie'
 
 type MoviePageProps = {
-  topRatedMovies: MovieApiResponse,
+  topRatedMovies: MovieApiResponse
   upcomingMovies: MovieApiResponse
 }
 
-export default function MoviePage({topRatedMovies, upcomingMovies}: MoviePageProps) {
+export default function MoviePage({
+  topRatedMovies,
+  upcomingMovies,
+}: MoviePageProps) {
   const topRated = topRatedMovies?.results
   const upcoming = upcomingMovies?.results
   topRated.forEach((movie) => (movie.contentType = 'movie'))
@@ -47,13 +50,13 @@ export const getServerSideProps = async () => {
 
   const [topRatedMovies, upcomingMovies] = await Promise.all([
     topRatedMovieRequest,
-    upcomingMovieRequest
+    upcomingMovieRequest,
   ])
 
   return {
     props: {
       topRatedMovies,
-      upcomingMovies
+      upcomingMovies,
     },
   }
 }

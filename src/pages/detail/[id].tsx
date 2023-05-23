@@ -23,9 +23,7 @@ export default function DetailPage({ data }: DetailPageProps) {
   return (
     <>
       <Head>
-        <title>
-          {`${itemTitle} | ${APP_TITLE}`}
-        </title>
+        <title>{`${itemTitle} | ${APP_TITLE}`}</title>
       </Head>
       <div className="relative overflow-hidden">
         {backdrop_path ? (
