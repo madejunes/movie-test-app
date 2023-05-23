@@ -1,4 +1,4 @@
-import { useOnlineStatus } from '@/features/connectivity/components/OnlineStatusProvider'
+import useOnlineStatus from '@/features/connectivity/hook/useOnlineStatus'
 import Navbar from './Navbar'
 
 type LayoutProps = {
@@ -8,8 +8,12 @@ export default function Layout({ children }: LayoutProps) {
   const isOnline = useOnlineStatus()
   return (
     <>
-      <div className="text-white text-center bg-zinc-700">
-        internet connection is {isOnline ? 'online' : 'offline'}!
+      <div
+        className={`text-white text-center bg-${
+          isOnline ? 'lime-500' : 'amber-500'
+        }`}
+      >
+        internet connection is {isOnline ? 'online' : 'unstable'}!
       </div>
       <div className="layout container mx-auto px-4">
         <Navbar />

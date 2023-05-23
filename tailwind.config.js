@@ -16,4 +16,5 @@ module.exports = {
     },
   },
   plugins: [],
+  safelist: ['bg-lime-500', 'bg-amber-500'],
 }
