@@ -14,6 +14,7 @@ export default function Navbar() {
     { label: 'Home', path: '/' },
     { label: 'Movie', path: '/movie' },
     { label: 'Tv', path: '/tv' },
+    { label: 'Favorites', path: '/fav' },
     { label: 'Search', path: '/search' },
   ]
 
