@@ -22,7 +22,7 @@ const checkOnlineStatus = async () => {
     await timeout(
       3000,
       fetch(
-        `${TMDB_API_PREFIX}movie/now_playing?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}`,
+        `${TMDB_API_PREFIX}movie/now_playing?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}`, // check if this reachable
         {
           method: 'GET',
           signal,
@@ -54,19 +54,18 @@ const useOnlineStatus = () => {
       setOnlineStatus(false)
     })
 
-    // Add polling incase of slow connection
-    const id = setInterval(() => {
+    const interval = setInterval(() => {
       checkStatus()
-    }, 1000)
+    }, 60000) // 60ms interval to check again
 
     return () => {
       window.removeEventListener('offline', () => {
         setOnlineStatus(false)
       })
 
-      clearInterval(id)
+      clearInterval(interval)
     }
-  }, [])
+  }, [onlineStatus])
 
   return onlineStatus
 }

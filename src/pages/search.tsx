@@ -1,14 +1,6 @@
 import Head from 'next/head'
-import { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useEffect, useState } from 'react'
 import { DebounceInput } from 'react-debounce-input'
-
-import {
-  fetchSearchSuccess,
-  toggleSearchLoadingStatus,
-  updateSearchQuery,
-} from '@/features/search/store/search-slice'
-import { RootState } from '@/store'
 
 import { APP_TITLE, TMDB_API_PREFIX } from '@/utils/settings'
 import { Item } from '@/features/shared/types/item'
@@ -16,45 +8,47 @@ import ItemCardLong from '@/features/shared/components/ItemCardLong'
 
 type FetchSearchResult = {
   results: Item[]
+  total_results: number
 }
 
 export default function SearchPage() {
-  const dispatch = useDispatch()
-  const searchQuery = useSelector(
-    (state: RootState) => state.search.searchQuery
-  )
-  const searchIsLoading = useSelector(
-    (state: RootState) => state.search.searchIsLoading
-  )
-  const searchResult = useSelector(
-    (state: RootState) => state.search.searchResult
-  )
-  const searchError = useSelector(
-    (state: RootState) => state.search.searchError
-  )
+  const [searchQuery, setSearchQuery] = useState('')
+  const [searchResult, setSearchResult] = useState<FetchSearchResult>()
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState('')
 
   const pageTitle = searchQuery
     ? `Searching "${searchQuery}"`
     : 'Search Movies/TV Shows'
 
   const fetchSearch = async (query: string) => {
-    dispatch(toggleSearchLoadingStatus())
+    setIsLoading(true)
+    setError('')
 
     try {
-      const response = await fetch(
-        `${TMDB_API_PREFIX}search/multi?query=${searchQuery}&api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}`
-      )
-        .then((res) => res.json())
-        .then((data) => data as FetchSearchResult)
-      const excludePerson = response.results.filter(
-        (item) => item.media_type !== 'person'
-      )
+      const movieSearchReq = fetch(
+        `${TMDB_API_PREFIX}search/movie?query=${searchQuery}&api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}`
+      ).then((res) => res.json()).then((data) => data as FetchSearchResult)
+      const tvSearchReq = fetch(
+        `${TMDB_API_PREFIX}search/tv?query=${searchQuery}&api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}`
+      ).then((res) => res.json()).then((data) => data as FetchSearchResult)
 
-      dispatch(toggleSearchLoadingStatus())
-      dispatch(fetchSearchSuccess(excludePerson))
+      const [movieSearchRes, tvSearchRes] = await Promise.all([
+        movieSearchReq,
+        tvSearchReq,
+      ])
+
+      const combineResult: FetchSearchResult = {
+        results: movieSearchRes.results.concat(tvSearchRes.results),
+        total_results: movieSearchRes.total_results + tvSearchRes.total_results
+      }
+     
+      setIsLoading(false)
+      setSearchResult(combineResult)
     } catch (error) {
-      dispatch(toggleSearchLoadingStatus())
-      dispatch(fetchSearchSuccess(error))
+      setIsLoading(false)
+      console.log(error)
+      setError('Some Error Happens!')
     }
   }
 
@@ -75,19 +69,24 @@ export default function SearchPage() {
         type="search"
         placeholder="type your query here"
         value={searchQuery}
-        onChange={(e) => dispatch(updateSearchQuery(e.target.value))}
+        onChange={(e) => setSearchQuery(e.target.value)}
         debounceTimeout={500}
       />
 
-      {searchIsLoading ? (
+      {isLoading ? (
         <p>Loading .... </p>
       ) : (
         <>
-          <div>{searchError}</div>
+          <div>{error}</div>
           <div>
-            {searchResult.map((item: Item) => (
-              <ItemCardLong key={item.id} item={item} />
-            ))}
+            {
+              searchResult?.total_results === 0 && searchQuery !== '' ?
+              <p>Seems Like no result, try again</p>
+              :
+              searchResult?.results.map((item: Item) => (
+                <ItemCardLong key={item.id} item={item} />
+              ))
+            }
           </div>
         </>
       )}
