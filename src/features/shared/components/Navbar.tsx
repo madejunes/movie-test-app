@@ -1,5 +1,7 @@
+import { RootState } from '@/store'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { useSelector } from 'react-redux'
 
 export default function Navbar() {
   const router = useRouter()
@@ -9,6 +11,8 @@ export default function Navbar() {
       router.asPath.includes(`/detail/${label.toLowerCase()}`)
     )
   }
+
+  const favItems = useSelector((state: RootState) => state.favorites.favItem)
 
   const links = [
     { label: 'Home', path: '/' },
@@ -20,7 +24,7 @@ export default function Navbar() {
 
   return (
     <nav className="mb-4">
-      <ul className="flex border-b ">
+      <ul className="flex border-b">
         {links.map((link) => (
           <li
             key={link.label}
@@ -33,6 +37,9 @@ export default function Navbar() {
               href={link.path}
             >
               {link.label}
+              {link.label === 'Favorites' && favItems.length
+                ? `(${favItems.length})`
+                : ''}
             </Link>
           </li>
         ))}

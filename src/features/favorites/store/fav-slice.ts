@@ -1,12 +1,12 @@
-import { Item } from "@/features/shared/types/item"
-import { createSlice } from "@reduxjs/toolkit"
+import { Item } from '@/features/shared/types/item'
+import { createSlice } from '@reduxjs/toolkit'
 
 type favoritesState = {
   favItem: Item[]
 }
 
 const initialState: favoritesState = {
-  favItem: []
+  favItem: [],
 }
 
 export const favSlice = createSlice({
@@ -14,21 +14,22 @@ export const favSlice = createSlice({
   initialState,
   reducers: {
     addFavorites: (state, action) => {
-      const hadItem = state.favItem.find((item) => item.id === action.payload.id);
+      const hadItem = state.favItem.find(
+        (item) => item.id === action.payload.id
+      )
       if (!hadItem) {
-        state.favItem.push({...action.payload})
+        state.favItem.push({ ...action.payload })
       }
     },
     removeFvorites: (state, action) => {
-      const indexToRemove = state.favItem?.findIndex(item => item.id === action.payload.id)
+      const indexToRemove = state.favItem?.findIndex(
+        (item) => item.id === action.payload.id
+      )
       state.favItem.splice(indexToRemove, 1)
-    }
-  }
+    },
+  },
 })
 
-export const {
-  addFavorites,
-  removeFvorites
-} = favSlice.actions
+export const { addFavorites, removeFvorites } = favSlice.actions
 
 export default favSlice.reducer

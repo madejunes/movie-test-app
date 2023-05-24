@@ -3,7 +3,7 @@ import favReducer from '@/features/favorites/store/fav-slice'
 
 export const store = configureStore({
   reducer: {
-    favorites: favReducer
+    favorites: favReducer,
   },
 })
 

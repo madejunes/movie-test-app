@@ -28,10 +28,14 @@ export default function SearchPage() {
     try {
       const movieSearchReq = fetch(
         `${TMDB_API_PREFIX}search/movie?query=${searchQuery}&api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}`
-      ).then((res) => res.json()).then((data) => data as FetchSearchResult)
+      )
+        .then((res) => res.json())
+        .then((data) => data as FetchSearchResult)
       const tvSearchReq = fetch(
         `${TMDB_API_PREFIX}search/tv?query=${searchQuery}&api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}`
-      ).then((res) => res.json()).then((data) => data as FetchSearchResult)
+      )
+        .then((res) => res.json())
+        .then((data) => data as FetchSearchResult)
 
       const [movieSearchRes, tvSearchRes] = await Promise.all([
         movieSearchReq,
@@ -40,9 +44,9 @@ export default function SearchPage() {
 
       const combineResult: FetchSearchResult = {
         results: movieSearchRes.results.concat(tvSearchRes.results),
-        total_results: movieSearchRes.total_results + tvSearchRes.total_results
+        total_results: movieSearchRes.total_results + tvSearchRes.total_results,
       }
-     
+
       setIsLoading(false)
       setSearchResult(combineResult)
     } catch (error) {
@@ -79,14 +83,13 @@ export default function SearchPage() {
         <>
           <div>{error}</div>
           <div>
-            {
-              searchResult?.total_results === 0 && searchQuery !== '' ?
+            {searchResult?.total_results === 0 && searchQuery !== '' ? (
               <p>Seems Like no result, try again</p>
-              :
+            ) : (
               searchResult?.results.map((item: Item) => (
                 <ItemCardLong key={item.id} item={item} />
               ))
-            }
+            )}
           </div>
         </>
       )}
